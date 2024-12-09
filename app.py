@@ -3,8 +3,12 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Load the dataset
-uploaded_file = "https://github.com/vaidyamohit/MarketDashboard/blob/main/Dataset%20Marketing.xlsx"
-df = pd.read_excel(uploaded_file, engine='openpyxl')
+uploaded_file = "https://github.com/vaidyamohit/Marketing-Dashboard/raw/main/Dataset%20Marketing.xlsx"
+try:
+    df = pd.read_excel(uploaded_file, engine="openpyxl")
+except Exception as e:
+    st.error("Failed to load the dataset. Please check the file path or the internet connection.")
+    st.stop()
 
 # Set up Streamlit app
 st.title("Marketing Dashboard")
@@ -19,7 +23,7 @@ if choice == "Overview":
     st.write("### First 5 rows of the dataset")
     st.dataframe(df.head())
     st.write("### Dataset Information")
-    st.write("Shape of the dataset: ", df.shape)
+    st.write(f"Shape of the dataset: {df.shape}")
     st.write("### Descriptive Statistics")
     st.write(df.describe())
 
@@ -65,4 +69,3 @@ elif choice == "Visualizations":
 
 # To run the dashboard, save this file as app.py and use the command:
 # streamlit run app.py
-
