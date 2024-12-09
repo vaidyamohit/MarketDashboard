@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Load the dataset
-uploaded_file = "https://github.com/vaidyamohit/Marketing-Dashboard/blob/main/Dataset%20Marketing.xlsx"
+uploaded_file = "https://github.com/vaidyamohit/MarketDashboard/blob/main/Dataset%20Marketing.xlsx"
 df = pd.read_excel(uploaded_file, engine='openpyxl')
 
 # Set up Streamlit app
