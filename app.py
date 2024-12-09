@@ -1,13 +1,19 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
+
+# Check for matplotlib availability
+try:
+    import matplotlib.pyplot as plt
+except ModuleNotFoundError:
+    st.error("Matplotlib is not installed. Please install it using 'pip install matplotlib'.")
+    st.stop()
 
 # Load the dataset
 uploaded_file = "https://github.com/vaidyamohit/Marketing-Dashboard/raw/main/Dataset%20Marketing.xlsx"
 try:
     df = pd.read_excel(uploaded_file, engine="openpyxl")
 except Exception as e:
-    st.error("Failed to load the dataset. Please check the file path or the internet connection.")
+    st.error("Failed to load the dataset. Please check the file path or internet connection.")
     st.stop()
 
 # Set up Streamlit app
@@ -46,26 +52,26 @@ elif choice == "Visualizations":
     
     chart_type = st.radio("Select Chart Type", ["Bar", "Line", "Scatter"])
     
-    if chart_type == "Bar":
-        fig, ax = plt.subplots()
-        ax.bar(df[x_axis], df[y_axis])
-        plt.xlabel(x_axis)
-        plt.ylabel(y_axis)
-        st.pyplot(fig)
-    
-    elif chart_type == "Line":
-        fig, ax = plt.subplots()
-        ax.plot(df[x_axis], df[y_axis])
-        plt.xlabel(x_axis)
-        plt.ylabel(y_axis)
-        st.pyplot(fig)
-    
-    elif chart_type == "Scatter":
-        fig, ax = plt.subplots()
-        ax.scatter(df[x_axis], df[y_axis])
-        plt.xlabel(x_axis)
-        plt.ylabel(y_axis)
-        st.pyplot(fig)
-
-# To run the dashboard, save this file as app.py and use the command:
-# streamlit run app.py
+    try:
+        if chart_type == "Bar":
+            fig, ax = plt.subplots()
+            ax.bar(df[x_axis], df[y_axis])
+            plt.xlabel(x_axis)
+            plt.ylabel(y_axis)
+            st.pyplot(fig)
+        
+        elif chart_type == "Line":
+            fig, ax = plt.subplots()
+            ax.plot(df[x_axis], df[y_axis])
+            plt.xlabel(x_axis)
+            plt.ylabel(y_axis)
+            st.pyplot(fig)
+        
+        elif chart_type == "Scatter":
+            fig, ax = plt.subplots()
+            ax.scatter(df[x_axis], df[y_axis])
+            plt.xlabel(x_axis)
+            plt.ylabel(y_axis)
+            st.pyplot(fig)
+    except Exception as e:
+        st.error(f"Error in visualization: {e}")
